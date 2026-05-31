@@ -8,7 +8,7 @@ INSERT INTO exercises (name, category, muscle_group, equipment, metric_type, des
 ('Barbell Bench Press',   'strength', 'chest',      'barbell',   'reps_weight', 'Compound press building chest, shoulders and triceps.'),
 ('Incline Dumbbell Press','strength', 'chest',      'dumbbell',  'reps_weight', 'Targets the upper chest on an inclined bench.'),
 ('Push-up',               'strength', 'chest',      'bodyweight','reps',        'Classic bodyweight pressing movement.'),
-('Barbell Back Squat',    'strength', 'legs',       'barbell',   'reps_weight', 'King of leg exercises, builds overall lower-body strength.'),
+('Barbell Back Squat',    'strength', 'legs',       'barbell',   'reps_weight', 'Compound lower-body movement targeting quads, hamstrings, and glutes.'),
 ('Goblet Squat',          'strength', 'legs',       'dumbbell',  'reps_weight', 'Beginner-friendly squat holding a single weight.'),
 ('Romanian Deadlift',     'strength', 'legs',       'barbell',   'reps_weight', 'Hip-hinge targeting hamstrings and glutes.'),
 ('Walking Lunge',         'strength', 'legs',       'dumbbell',  'reps_weight', 'Unilateral leg builder improving balance.'),
