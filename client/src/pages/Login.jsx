@@ -6,9 +6,9 @@ import { Button, Field } from '../components/ui.jsx';
 import { IconBolt, IconChart, IconTrophy, IconDumbbell } from '../components/icons.jsx';
 
 const FEATURES = [
-  { icon: <IconBolt width={18} height={18} />, title: 'Log in seconds', text: 'Fast, beginner-friendly workout logging.' },
-  { icon: <IconChart width={18} height={18} />, title: 'See your progress', text: 'Clear charts for volume, weight and PRs.' },
-  { icon: <IconTrophy width={18} height={18} />, title: 'Stay motivated', text: 'Streaks, XP, levels and achievement badges.' },
+  { icon: <IconBolt width={18} height={18} />, title: 'Workout logging', text: 'Record exercises, sets, reps, and weight.' },
+  { icon: <IconChart width={18} height={18} />, title: 'Progress tracking', text: 'View volume, frequency, and personal records.' },
+  { icon: <IconTrophy width={18} height={18} />, title: 'Goals and streaks', text: 'Set targets and keep track of consistency.' },
 ];
 
 export default function Login() {
@@ -22,8 +22,7 @@ export default function Login() {
     e.preventDefault();
     setBusy(true);
     try {
-      const user = await login(form.email.trim(), form.password);
-      toast.success(`Welcome back, ${user.name.split(' ')[0]}!`);
+      await login(form.email.trim(), form.password);
       navigate('/');
     } catch (err) {
       toast.error('Login failed', err.message);
@@ -40,12 +39,12 @@ export default function Login() {
           <div className="brand-name">Fit<span>Sync</span></div>
         </div>
         <div>
-          <h1 style={{ fontSize: 34, lineHeight: 1.15, marginBottom: 12 }}>
-            Track. Progress.<br />Repeat.
+          <h1 style={{ fontSize: 28, lineHeight: 1.2, marginBottom: 12 }}>
+            Workout and fitness tracker
           </h1>
           <p className="muted" style={{ maxWidth: 360, marginBottom: 30 }}>
-            Your personal fitness companion — log workouts effortlessly and watch
-            yourself get stronger every week.
+            FitSync helps you log workouts, follow your progress over time, and
+            keep track of your goals.
           </p>
           {FEATURES.map((f) => (
             <div className="auth-feature" key={f.title}>
@@ -62,8 +61,8 @@ export default function Login() {
 
       <div className="auth-form-side">
         <div className="auth-card">
-          <h2 style={{ fontSize: 24, marginBottom: 6 }}>Welcome back</h2>
-          <p className="muted mb">Log in to continue your fitness journey.</p>
+          <h2 style={{ fontSize: 22, marginBottom: 6 }}>Sign in</h2>
+          <p className="muted mb">Enter your details to access your account.</p>
 
           <form onSubmit={submit}>
             <Field label="Email">
@@ -79,22 +78,22 @@ export default function Login() {
                 className="input" type="password" autoComplete="current-password" required
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                placeholder="••••••••"
+                placeholder="Your password"
               />
             </Field>
             <Button type="submit" block disabled={busy}>
-              {busy ? 'Logging in…' : 'Log in'}
+              {busy ? 'Signing in...' : 'Sign in'}
             </Button>
           </form>
 
           <p className="muted mt-lg" style={{ textAlign: 'center', fontSize: 14 }}>
-            New to FitSync? <Link to="/register" className="text-brand" style={{ fontWeight: 600 }}>Create an account</Link>
+            Don't have an account? <Link to="/register" className="text-brand" style={{ fontWeight: 600 }}>Register</Link>
           </p>
 
           <div className="card card-pad mt-lg" style={{ background: 'var(--surface)' }}>
-            <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>🎬 Demo account</div>
+            <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>Demo account</div>
             <div className="muted" style={{ fontSize: 13 }}>
-              demo@fitsync.app · demo1234 (pre-filled — just click Log in)
+              Email demo@fitsync.app, password demo1234 (already filled in).
             </div>
           </div>
         </div>

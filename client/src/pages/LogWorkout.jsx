@@ -103,7 +103,7 @@ export default function LogWorkout() {
   const repeatLast = async () => {
     try {
       const { workout } = await api.get('/workouts/last');
-      if (!workout) return toast.info('Nothing to repeat yet', 'Log your first workout first.');
+      if (!workout) return toast.info('Nothing to repeat', 'Log a workout first.');
       setTitle(workout.title);
       setEntries(
         workout.exercises.map((ex) => ({
@@ -119,7 +119,7 @@ export default function LogWorkout() {
           })),
         }))
       );
-      toast.success('Loaded your last workout', 'Tweak the numbers and save.');
+      toast.success('Loaded your last workout', 'Adjust the values and save.');
     } catch (err) {
       toast.error('Could not load last workout', err.message);
     }
@@ -148,12 +148,12 @@ export default function LogWorkout() {
     setBusy(true);
     try {
       const { workout, feedback } = await api.post('/workouts', buildPayload());
-      toast.celebrate(`Workout saved! +${feedback.xpGained} XP`, `${workout.exercises.length} exercises · ${workout.volume.toLocaleString()} kg volume`);
+      toast.success('Workout saved', `${workout.exercises.length} exercises, ${workout.volume.toLocaleString()} kg total volume.`);
       if (feedback.leveledUp) {
-        setTimeout(() => toast.celebrate(`Level up! You reached level ${feedback.level} ⚡`), 400);
+        setTimeout(() => toast.info(`Reached level ${feedback.level}`), 400);
       }
       feedback.newBadges?.forEach((b, i) =>
-        setTimeout(() => toast.celebrate(`Badge unlocked: ${b.name} ${b.icon}`, b.description), 800 + i * 600)
+        setTimeout(() => toast.info(`Badge earned: ${b.name}`, b.description), 700 + i * 500)
       );
       updateUser({ level: feedback.level });
       navigate(`/workouts/${workout.id}`);
@@ -171,9 +171,9 @@ export default function LogWorkout() {
       <div className="page-head">
         <div>
           <h1 className="page-title">Log a workout</h1>
-          <p className="page-sub">Add your exercises and sets — it only takes a moment.</p>
+          <p className="page-sub">Add the exercises and sets you completed.</p>
         </div>
-        <Button variant="ghost" onClick={repeatLast}>🔁 Repeat last</Button>
+        <Button variant="ghost" onClick={repeatLast}>Repeat last workout</Button>
       </div>
 
       <Card className="mb">
@@ -193,9 +193,9 @@ export default function LogWorkout() {
       {entries.length === 0 ? (
         <Card>
           <EmptyState
-            emoji="➕"
+            icon={<IconPlus width={22} height={22} />}
             title="No exercises added"
-            message="Pick exercises from the library to start building your session."
+            message="Add exercises from the library to build your session."
             action={<Button onClick={() => setPickerOpen(true)}><IconPlus width={18} height={18} /> Add exercise</Button>}
           />
         </Card>
@@ -254,7 +254,7 @@ export default function LogWorkout() {
             <strong style={{ color: 'var(--text)' }}>{totalSets}</strong> sets
           </div>
           <Button variant="accent" onClick={submit} disabled={busy}>
-            <IconCheck width={18} height={18} /> {busy ? 'Saving…' : 'Save workout'}
+            <IconCheck width={18} height={18} /> {busy ? 'Saving...' : 'Save workout'}
           </Button>
         </Card>
       )}
@@ -265,7 +265,7 @@ export default function LogWorkout() {
           <IconSearch width={18} height={18} className="muted" />
           <input
             className="input" style={{ border: 'none', background: 'transparent', padding: '11px 0' }}
-            placeholder="Search exercises…" value={search} autoFocus
+            placeholder="Search exercises..." value={search} autoFocus
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>

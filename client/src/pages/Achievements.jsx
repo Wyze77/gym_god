@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../api/client.js';
 import { useToast } from '../context/ToastContext.jsx';
 import { Card, Spinner, ProgressBar } from '../components/ui.jsx';
+import { IconMedal, IconLock } from '../components/icons.jsx';
 import { formatDate } from '../utils/format.js';
 
 const TIER_LABEL = { bronze: 'Bronze', silver: 'Silver', gold: 'Gold' };
@@ -29,14 +30,14 @@ export default function Achievements() {
       <div className="page-head">
         <div>
           <h1 className="page-title">Achievements</h1>
-          <p className="page-sub">Unlock badges by staying consistent and hitting milestones.</p>
+          <p className="page-sub">Badges you earn as you log workouts and reach milestones.</p>
         </div>
       </div>
 
       <Card className="mb">
         <div className="flex between center mb">
-          <div className="card-title">🏆 {earnedCount} of {total} unlocked</div>
-          <span className="muted" style={{ fontSize: 13 }}>{Math.round(pct)}% complete</span>
+          <div className="card-title">{earnedCount} of {total} earned</div>
+          <span className="muted" style={{ fontSize: 13 }}>{Math.round(pct)}%</span>
         </div>
         <ProgressBar value={pct} />
       </Card>
@@ -44,12 +45,14 @@ export default function Achievements() {
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))' }}>
         {badges.map((b) => (
           <div key={b.id} className={`badge-tile ${b.tier} ${b.earned ? '' : 'locked'}`}>
-            <div className="badge-emoji">{b.earned ? b.icon : '🔒'}</div>
-            <div style={{ fontWeight: 700, fontSize: 14.5 }}>{b.name}</div>
+            <div className="badge-icon">
+              {b.earned ? <IconMedal width={26} height={26} /> : <IconLock width={24} height={24} />}
+            </div>
+            <div style={{ fontWeight: 600, fontSize: 14.5 }}>{b.name}</div>
             <div className="muted" style={{ fontSize: 12.5, marginTop: 4, minHeight: 32 }}>{b.description}</div>
             <div className="chip mt" style={{ fontSize: 11 }}>{TIER_LABEL[b.tier]}</div>
             {b.earned && b.earnedAt && (
-              <div className="text-accent" style={{ fontSize: 11.5, marginTop: 8, fontWeight: 600 }}>
+              <div className="muted" style={{ fontSize: 11.5, marginTop: 8 }}>
                 Earned {formatDate(b.earnedAt, { year: true })}
               </div>
             )}

@@ -36,8 +36,8 @@ export default function Workouts() {
     <>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Workout history</h1>
-          <p className="page-sub">{total} workout{total === 1 ? '' : 's'} logged so far. Tap one for details.</p>
+          <h1 className="page-title">Workouts</h1>
+          <p className="page-sub">{total} workout{total === 1 ? '' : 's'} logged. Select one to view details.</p>
         </div>
         <Button onClick={() => navigate('/log')}><IconPlus width={18} height={18} /> Log workout</Button>
       </div>
@@ -45,9 +45,9 @@ export default function Workouts() {
       {workouts.length === 0 ? (
         <Card>
           <EmptyState
-            emoji="🏋️"
+            icon={<IconDumbbell width={22} height={22} />}
             title="No workouts yet"
-            message="Your logged sessions will appear here. Start your first one!"
+            message="Your logged sessions will appear here."
             action={<Button onClick={() => navigate('/log')}><IconPlus width={18} height={18} /> Log a workout</Button>}
           />
         </Card>
@@ -87,7 +87,7 @@ export default function Workouts() {
       {workouts.length < total && (
         <div className="flex center" style={{ justifyContent: 'center', marginTop: 22 }}>
           <Button variant="ghost" onClick={() => load(workouts.length)} disabled={loadingMore}>
-            {loadingMore ? 'Loading…' : 'Load more'}
+            {loadingMore ? 'Loading...' : 'Load more'}
           </Button>
         </div>
       )}

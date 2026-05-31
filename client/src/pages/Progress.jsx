@@ -6,6 +6,7 @@ import {
 import { api } from '../api/client.js';
 import { useToast } from '../context/ToastContext.jsx';
 import { Card, Spinner, EmptyState } from '../components/ui.jsx';
+import { IconChart } from '../components/icons.jsx';
 import { formatNumber, formatVolume, formatDate } from '../utils/format.js';
 
 const PIE_COLORS = ['#6366f1', '#22d3a8', '#f59e0b', '#ef4444', '#8b5cf6', '#38bdf8', '#ec4899', '#84cc16'];
@@ -51,14 +52,14 @@ export default function Progress() {
     <>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Your progress</h1>
-          <p className="page-sub">Visualize how far you've come — and where you're heading.</p>
+          <h1 className="page-title">Progress</h1>
+          <p className="page-sub">Charts and records based on your logged workouts.</p>
         </div>
       </div>
 
       {!hasData ? (
         <Card>
-          <EmptyState emoji="📈" title="No data to chart yet" message="Log a few workouts and your progress charts will come to life." />
+          <EmptyState icon={<IconChart width={22} height={22} />} title="No data yet" message="Log a few workouts and your charts will appear here." />
         </Card>
       ) : (
         <>
@@ -139,8 +140,8 @@ export default function Progress() {
           {personalRecords.length > 0 && (
             <Card className="mt-lg" pad={false}>
               <div className="card-pad card-head" style={{ marginBottom: 0 }}>
-                <div className="card-title">Personal records 🏅</div>
-                <span className="card-hint">your best across all sessions</span>
+                <div className="card-title">Personal records</div>
+                <span className="card-hint">best across all sessions</span>
               </div>
               <div className="divide">
                 {personalRecords.map((pr) => (
@@ -161,7 +162,7 @@ export default function Progress() {
                       </div>
                     ) : (
                       <div className="text-right">
-                        <div style={{ fontWeight: 700 }} className="text-accent">{pr.maxReps ?? '—'}</div>
+                        <div style={{ fontWeight: 700 }} className="text-accent">{pr.maxReps ?? '-'}</div>
                         <div className="faint" style={{ fontSize: 11.5 }}>best reps</div>
                       </div>
                     )}

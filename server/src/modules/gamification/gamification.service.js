@@ -71,7 +71,6 @@ export async function evaluateBadges(userId) {
         code: badge.code,
         name: badge.name,
         description: badge.description,
-        icon: badge.icon,
         tier: badge.tier,
       });
     }
@@ -82,7 +81,7 @@ export async function evaluateBadges(userId) {
 /** All badges with an "earned" flag and earned timestamp for the user. */
 export async function listBadgesForUser(userId) {
   const rows = await query(
-    `SELECT b.id, b.code, b.name, b.description, b.icon, b.tier,
+    `SELECT b.id, b.code, b.name, b.description, b.tier,
             b.criteria_type AS criteriaType, b.criteria_value AS criteriaValue,
             ub.earned_at AS earnedAt
      FROM badges b

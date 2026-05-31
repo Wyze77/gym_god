@@ -1,7 +1,7 @@
 // Standalone API smoke test (run against a live server on :4000).
 const BASE = 'http://localhost:4000/api';
 let pass = 0, fail = 0;
-const ok = (cond, label) => { (cond ? pass++ : fail++); console.log(`${cond ? '✓' : '✗'} ${label}`); };
+const ok = (cond, label) => { (cond ? pass++ : fail++); console.log(`${cond ? 'PASS' : 'FAIL'} ${label}`); };
 
 async function call(method, path, body, token) {
   const res = await fetch(BASE + path, {
@@ -45,7 +45,7 @@ ok(detail.status === 200 && detail.data.workout.exercises.length === 1, `workout
 
 const goals = await call('GET', '/goals', null, token);
 ok(goals.status === 200 && goals.data.goals.length >= 1, `goals -> ${goals.data.goals?.length}`);
-goals.data.goals.forEach((g) => console.log(`    • ${g.title}: ${g.currentValue}/${g.targetValue} ${g.unit} (${g.progressPct}%)`));
+goals.data.goals.forEach((g) => console.log(`    - ${g.title}: ${g.currentValue}/${g.targetValue} ${g.unit} (${g.progressPct}%)`));
 
 const newGoal = await call('POST', '/goals', { type: 'streak_days', title: 'Hit 5-day streak', targetValue: 5 }, token);
 ok(newGoal.status === 201, `create goal -> ${newGoal.status}`);
@@ -65,5 +65,5 @@ ok(badWorkout.status === 400, `empty workout -> ${badWorkout.status} (expect 400
 const noAuth = await call('GET', '/stats/dashboard');
 ok(noAuth.status === 401, `no-auth dashboard -> ${noAuth.status} (expect 401)`);
 
-console.log(`\n${fail === 0 ? '🎉 ALL PASSED' : '❌ SOME FAILED'} — ${pass} passed, ${fail} failed`);
+console.log(`\n${fail === 0 ? 'All passed' : 'Some failed'} - ${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);

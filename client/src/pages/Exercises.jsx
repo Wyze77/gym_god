@@ -77,7 +77,7 @@ export default function Exercises() {
           <IconSearch width={18} height={18} className="muted" />
           <input
             className="input" style={{ border: 'none', background: 'transparent', padding: '11px 0' }}
-            placeholder="Search exercises…" value={search} onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search exercises..." value={search} onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="flex gap-sm wrap">
@@ -92,7 +92,7 @@ export default function Exercises() {
       {loading ? (
         <Spinner page />
       ) : filtered.length === 0 ? (
-        <Card><EmptyState emoji="🔍" title="No exercises found" message="Try a different search or category." /></Card>
+        <Card><EmptyState icon={<IconSearch width={22} height={22} />} title="No exercises found" message="Try a different search term or category." /></Card>
       ) : (
         <div className="grid grid-2">
           {filtered.map((ex) => (
@@ -145,11 +145,11 @@ export default function Exercises() {
             </Field>
           </div>
           <Field label="Description (optional)">
-            <textarea className="textarea" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Short cue or note…" />
+            <textarea className="textarea" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Short note or cue (optional)" />
           </Field>
           <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
             <Button type="button" variant="ghost" onClick={() => setModal(false)}>Cancel</Button>
-            <Button type="submit" disabled={busy}>{busy ? 'Adding…' : 'Add exercise'}</Button>
+            <Button type="submit" disabled={busy}>{busy ? 'Adding...' : 'Add exercise'}</Button>
           </div>
         </form>
       </Modal>

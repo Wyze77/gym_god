@@ -30,7 +30,7 @@ async function request(method, path, body) {
       body: body ? JSON.stringify(body) : undefined,
     });
   } catch {
-    throw new ApiError('Network error — is the API running?', 0);
+    throw new ApiError('Network error - is the API running?', 0);
   }
 
   if (res.status === 204) return null;

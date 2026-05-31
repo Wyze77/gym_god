@@ -24,7 +24,7 @@ function readSql(file) {
 }
 
 async function run() {
-  console.log('FitSync database setup starting...');
+  console.log('Setting up the FitSync database...');
 
   // Connect without selecting a database so we can create it.
   const root = await mysql.createConnection({
@@ -40,26 +40,26 @@ async function run() {
      CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
   );
   await root.changeUser({ database: config.db.database });
-  console.log(`✓ Database "${config.db.database}" ready`);
+  console.log(`Database "${config.db.database}" is ready`);
 
   await root.query(readSql('schema.sql'));
-  console.log('✓ Schema created');
+  console.log('Schema created');
 
   await root.query(readSql('seed.sql'));
-  console.log('✓ Reference data (exercises, badges) seeded');
+  console.log('Reference data inserted (exercises, badges)');
 
   await root.end();
 
   // Dynamic demo data uses the shared pool and bcrypt hashing.
   await seedDemoData();
-  console.log('✓ Demo user and sample workouts seeded');
+  console.log('Demo account and sample workouts inserted');
 
-  console.log('\nAll done! You can now start the server with: npm run dev');
+  console.log('Done. Start the server with: npm run dev');
   process.exit(0);
 }
 
 run().catch((err) => {
-  console.error('\nDatabase setup failed:');
+  console.error('Database setup failed:');
   console.error(err.message);
   process.exit(1);
 });

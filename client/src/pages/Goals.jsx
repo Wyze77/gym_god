@@ -38,7 +38,7 @@ export default function Goals() {
         title: form.title.trim() || TYPES.find((t) => t.value === form.type).label,
         targetValue: Number(form.targetValue),
       });
-      toast.success('Goal created', "You've got this! 💪");
+      toast.success('Goal created');
       setModal(false);
       setForm({ type: 'workouts_per_week', title: '', targetValue: '' });
       load();
@@ -66,7 +66,7 @@ export default function Goals() {
       <div className="page-head">
         <div>
           <h1 className="page-title">Goals</h1>
-          <p className="page-sub">Set targets and watch FitSync track your progress automatically.</p>
+          <p className="page-sub">Set targets that update automatically from your workouts.</p>
         </div>
         <Button onClick={() => setModal(true)}><IconPlus width={18} height={18} /> New goal</Button>
       </div>
@@ -76,9 +76,9 @@ export default function Goals() {
       ) : goals.length === 0 ? (
         <Card>
           <EmptyState
-            emoji="🎯"
+            icon={<IconTarget width={22} height={22} />}
             title="No goals yet"
-            message="Goals keep you accountable. Set one and we'll track it from your workouts."
+            message="Create a goal and it will be tracked from your logged workouts."
             action={<Button onClick={() => setModal(true)}><IconPlus width={18} height={18} /> Create a goal</Button>}
           />
         </Card>
@@ -112,7 +112,7 @@ export default function Goals() {
                   </span>
                 </div>
                 <ProgressBar value={g.progressPct} />
-                {done && <div className="text-accent mt" style={{ fontSize: 13, fontWeight: 600 }}>✅ Goal achieved — amazing work!</div>}
+                {done && <div className="text-accent mt" style={{ fontSize: 13, fontWeight: 600 }}>Goal reached</div>}
               </Card>
             );
           })}
@@ -134,7 +134,7 @@ export default function Goals() {
           </Field>
           <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
             <Button type="button" variant="ghost" onClick={() => setModal(false)}>Cancel</Button>
-            <Button type="submit" disabled={busy}>{busy ? 'Creating…' : 'Create goal'}</Button>
+            <Button type="submit" disabled={busy}>{busy ? 'Creating...' : 'Create goal'}</Button>
           </div>
         </form>
       </Modal>

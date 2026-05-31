@@ -46,7 +46,7 @@ async function insertWorkout(userId, when, title, duration, entries) {
   const res = await query(
     `INSERT INTO workouts (user_id, title, performed_at, duration_min, notes)
      VALUES (:userId, :title, :performedAt, :duration, :notes)`,
-    { userId, title, performedAt: dt(when), duration, notes: 'Great session!' }
+    { userId, title, performedAt: dt(when), duration, notes: null }
   );
   const workoutId = res.insertId;
 

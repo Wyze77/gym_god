@@ -42,14 +42,14 @@ INSERT INTO exercises (name, category, muscle_group, equipment, metric_type, des
 -- ---------------------------------------------------------------------
 -- Badge definitions
 -- ---------------------------------------------------------------------
-INSERT INTO badges (code, name, description, icon, tier, criteria_type, criteria_value) VALUES
-('first_workout',   'First Step',       'Log your very first workout.',              '🎯', 'bronze', 'total_workouts',     1),
-('ten_workouts',    'Getting Serious',  'Complete 10 workouts.',                     '💪', 'silver', 'total_workouts',     10),
-('fifty_workouts',  'Iron Will',        'Complete 50 workouts.',                     '🏆', 'gold',   'total_workouts',     50),
-('streak_3',        'On a Roll',        'Reach a 3-day workout streak.',             '🔥', 'bronze', 'streak_days',        3),
-('streak_7',        'Week Warrior',     'Reach a 7-day workout streak.',             '⚡', 'silver', 'streak_days',        7),
-('streak_30',       'Unstoppable',      'Reach a 30-day workout streak.',            '🚀', 'gold',   'streak_days',        30),
-('volume_5000',     'Heavy Lifter',     'Move 5,000 kg of total volume.',            '🏋️', 'bronze', 'total_volume',       5000),
-('volume_50000',    'Powerhouse',       'Move 50,000 kg of total volume.',           '🦾', 'gold',   'total_volume',       50000),
-('explorer_10',     'Explorer',         'Try 10 different exercises.',               '🧭', 'silver', 'distinct_exercises', 10),
-('level_5',         'Rising Star',      'Reach level 5.',                            '⭐', 'silver', 'level',              5);
+INSERT INTO badges (code, name, description, tier, criteria_type, criteria_value) VALUES
+('first_workout',   'First Step',       'Log your very first workout.',              'bronze', 'total_workouts',     1),
+('ten_workouts',    'Getting Serious',  'Complete 10 workouts.',                     'silver', 'total_workouts',     10),
+('fifty_workouts',  'Iron Will',        'Complete 50 workouts.',                     'gold',   'total_workouts',     50),
+('streak_3',        'On a Roll',        'Reach a 3-day workout streak.',             'bronze', 'streak_days',        3),
+('streak_7',        'Week Warrior',     'Reach a 7-day workout streak.',             'silver', 'streak_days',        7),
+('streak_30',       'Unstoppable',      'Reach a 30-day workout streak.',            'gold',   'streak_days',        30),
+('volume_5000',     'Heavy Lifter',     'Move 5,000 kg of total volume.',            'bronze', 'total_volume',       5000),
+('volume_50000',    'Powerhouse',       'Move 50,000 kg of total volume.',           'gold',   'total_volume',       50000),
+('explorer_10',     'Explorer',         'Try 10 different exercises.',               'silver', 'distinct_exercises', 10),
+('level_5',         'Rising Star',      'Reach level 5.',                            'silver', 'level',              5);

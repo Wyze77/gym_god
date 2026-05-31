@@ -69,12 +69,12 @@ export function Field({ label, error, children }) {
   );
 }
 
-export function EmptyState({ emoji = '🗒️', title, message, action }) {
+export function EmptyState({ icon, title, message, action }) {
   return (
     <div className="empty">
-      <div className="empty-emoji">{emoji}</div>
+      {icon && <div className="empty-icon">{icon}</div>}
       <h3>{title}</h3>
-      {message && <p className="muted mt" style={{ maxWidth: 360, margin: '8px auto 0' }}>{message}</p>}
+      {message && <p className="muted mt" style={{ maxWidth: 380, margin: '8px auto 0' }}>{message}</p>}
       {action && <div className="mt-lg">{action}</div>}
     </div>
   );

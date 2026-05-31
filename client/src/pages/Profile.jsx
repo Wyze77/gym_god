@@ -64,7 +64,7 @@ export default function Profile() {
       updateUser({ weightKg: saved.weightKg });
       setForm((f) => ({ ...f, weightKg: saved.weightKg }));
       setMetric({ weightKg: '', bodyFatPct: '' });
-      toast.success('Weight logged', 'Your body-weight chart is updated.');
+      toast.success('Measurement saved');
     } catch (err) {
       toast.error('Could not log weight', err.message);
     } finally {
@@ -106,7 +106,7 @@ export default function Profile() {
                 {FITNESS_GOALS.map((g) => <option key={g.value} value={g.value}>{g.label}</option>)}
               </select>
             </Field>
-            <Button type="submit" disabled={savingProfile}>{savingProfile ? 'Saving…' : 'Save changes'}</Button>
+            <Button type="submit" disabled={savingProfile}>{savingProfile ? 'Saving...' : 'Save changes'}</Button>
           </form>
         </Card>
 
@@ -122,7 +122,7 @@ export default function Profile() {
                   <input className="input" type="number" min="1" step="0.1" value={metric.bodyFatPct} onChange={(e) => setMetric({ ...metric, bodyFatPct: e.target.value })} placeholder="18" />
                 </Field>
               </div>
-              <Button type="submit" variant="accent" disabled={savingMetric}>{savingMetric ? 'Saving…' : "Log today's weight"}</Button>
+              <Button type="submit" variant="accent" disabled={savingMetric}>{savingMetric ? 'Saving...' : "Log today's weight"}</Button>
             </form>
           </Card>
 

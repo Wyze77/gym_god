@@ -21,13 +21,12 @@ export default function Register() {
     setErrors({});
     setBusy(true);
     try {
-      const user = await register({
+      await register({
         name: form.name.trim(),
         email: form.email.trim(),
         password: form.password,
         fitnessGoal: form.fitnessGoal,
       });
-      toast.celebrate(`Welcome to FitSync, ${user.name.split(' ')[0]}! 💪`, 'Log your first workout to earn a badge.');
       navigate('/');
     } catch (err) {
       if (err.details) {
@@ -35,7 +34,7 @@ export default function Register() {
         err.details.forEach((d) => { map[d.field] = d.message; });
         setErrors(map);
       }
-      toast.error('Could not sign up', err.message);
+      toast.error('Registration failed', err.message);
     } finally {
       setBusy(false);
     }
@@ -49,12 +48,12 @@ export default function Register() {
           <div className="brand-name">Fit<span>Sync</span></div>
         </div>
         <div>
-          <h1 style={{ fontSize: 34, lineHeight: 1.15, marginBottom: 12 }}>
-            Start your<br />transformation.
+          <h1 style={{ fontSize: 28, lineHeight: 1.2, marginBottom: 12 }}>
+            Create an account
           </h1>
           <p className="muted" style={{ maxWidth: 360 }}>
-            Join FitSync and turn consistency into results. It only takes a minute
-            to set up — and your first badge is waiting.
+            Set up an account to start logging workouts and tracking your
+            progress over time.
           </p>
         </div>
         <div className="faint" style={{ fontSize: 13 }}>© {new Date().getFullYear()} FitSync</div>
@@ -62,12 +61,12 @@ export default function Register() {
 
       <div className="auth-form-side">
         <div className="auth-card">
-          <h2 style={{ fontSize: 24, marginBottom: 6 }}>Create your account</h2>
-          <p className="muted mb">Free forever. No credit card needed.</p>
+          <h2 style={{ fontSize: 22, marginBottom: 6 }}>Register</h2>
+          <p className="muted mb">It only takes a moment to get started.</p>
 
           <form onSubmit={submit}>
-            <Field label="Full name" error={errors.name}>
-              <input className="input" required value={form.name} onChange={set('name')} placeholder="Jane Doe" />
+            <Field label="Name" error={errors.name}>
+              <input className="input" required value={form.name} onChange={set('name')} placeholder="Your name" />
             </Field>
             <Field label="Email" error={errors.email}>
               <input className="input" type="email" required value={form.email} onChange={set('email')} placeholder="you@example.com" />
@@ -75,18 +74,18 @@ export default function Register() {
             <Field label="Password" error={errors.password}>
               <input className="input" type="password" required value={form.password} onChange={set('password')} placeholder="At least 6 characters" />
             </Field>
-            <Field label="What's your main goal?">
+            <Field label="Main goal">
               <select className="select" value={form.fitnessGoal} onChange={set('fitnessGoal')}>
                 {FITNESS_GOALS.map((g) => <option key={g.value} value={g.value}>{g.label}</option>)}
               </select>
             </Field>
             <Button type="submit" block disabled={busy}>
-              {busy ? 'Creating account…' : 'Create account'}
+              {busy ? 'Creating account...' : 'Create account'}
             </Button>
           </form>
 
           <p className="muted mt-lg" style={{ textAlign: 'center', fontSize: 14 }}>
-            Already have an account? <Link to="/login" className="text-brand" style={{ fontWeight: 600 }}>Log in</Link>
+            Already have an account? <Link to="/login" className="text-brand" style={{ fontWeight: 600 }}>Sign in</Link>
           </p>
         </div>
       </div>

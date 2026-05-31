@@ -145,7 +145,6 @@ CREATE TABLE badges (
   code          VARCHAR(60) NOT NULL UNIQUE,
   name          VARCHAR(80) NOT NULL,
   description   VARCHAR(255) NOT NULL,
-  icon          VARCHAR(20) NOT NULL DEFAULT '🏅',
   tier          ENUM('bronze','silver','gold') NOT NULL DEFAULT 'bronze',
   criteria_type ENUM('total_workouts','streak_days','total_volume','distinct_exercises','level') NOT NULL,
   criteria_value INT NOT NULL
