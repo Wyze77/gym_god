@@ -68,7 +68,10 @@ export default function WorkoutDetail() {
       </div>
 
       {workout.notes && (
-        <Card className="mb"><div className="muted" style={{ fontSize: 14 }}>📝 {workout.notes}</div></Card>
+        <Card className="mb">
+          <div className="card-hint mb" style={{ fontSize: 12 }}>Notes</div>
+          <div style={{ fontSize: 14 }}>{workout.notes}</div>
+        </Card>
       )}
 
       <div className="grid" style={{ gap: 14 }}>
@@ -105,7 +108,7 @@ export default function WorkoutDetail() {
         footer={
           <>
             <Button variant="ghost" onClick={() => setConfirm(false)}>Cancel</Button>
-            <Button variant="danger" onClick={remove} disabled={deleting}>{deleting ? 'Deleting…' : 'Delete'}</Button>
+            <Button variant="danger" onClick={remove} disabled={deleting}>{deleting ? 'Deleting...' : 'Delete'}</Button>
           </>
         }
       >

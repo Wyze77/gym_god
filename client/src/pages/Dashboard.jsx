@@ -42,19 +42,17 @@ export default function Dashboard() {
     <>
       <div className="page-head">
         <div>
-          <h1 className="page-title">{greeting()}, {user?.name?.split(' ')[0]} 👋</h1>
-          <p className="page-sub">Here's your fitness snapshot. Keep the momentum going!</p>
+          <h1 className="page-title">{greeting()}, {user?.name?.split(' ')[0]}</h1>
+          <p className="page-sub">An overview of your recent activity and progress.</p>
         </div>
         <Button onClick={() => navigate('/log')}><IconPlus width={18} height={18} /> Log workout</Button>
       </div>
 
-      {/* Stat row */}
       <div className="grid grid-stats mb">
         <StatCard
           icon={<IconFlame width={20} height={20} />}
           value={<span>{summary.currentStreak} <span style={{ fontSize: 16 }}>days</span></span>}
           label="Current streak"
-          sub={summary.currentStreak > 0 ? "🔥 Don't break the chain!" : 'Start one today'}
         />
         <StatCard
           icon={<IconDumbbell width={20} height={20} />}
@@ -65,48 +63,46 @@ export default function Dashboard() {
         <StatCard
           icon={<IconBolt width={20} height={20} />}
           value={formatVolume(summary.totalVolume)}
-          label="Total volume lifted"
+          label="Total volume"
           accent
         />
         <StatCard
           icon={<IconTrophy width={20} height={20} />}
           value={`${badges.earnedCount}/${badges.total}`}
           label="Badges earned"
-          sub={badges.next ? `Next: ${badges.next.name}` : 'All unlocked! 🏆'}
+          sub={badges.next ? `Next: ${badges.next.name}` : undefined}
         />
       </div>
 
       <div className="grid grid-2">
-        {/* Level / XP card */}
         <Card>
           <div className="card-head">
-            <div className="card-title">Your level</div>
+            <div className="card-title">Level</div>
             <span className="chip active">Level {level.level}</span>
           </div>
           <div className="flex between center" style={{ marginBottom: 8 }}>
             <span className="muted" style={{ fontSize: 13 }}>{formatNumber(level.xp)} XP total</span>
             <span className="muted" style={{ fontSize: 13 }}>
-              {formatNumber(level.xpIntoLevel)} / {formatNumber(level.xpForNextLevel)} to L{level.level + 1}
+              {formatNumber(level.xpIntoLevel)} / {formatNumber(level.xpForNextLevel)} to level {level.level + 1}
             </span>
           </div>
           <ProgressBar value={xpPct} />
           <p className="muted mt" style={{ fontSize: 13 }}>
-            Earn XP every time you log a workout. Bigger sessions = more XP.
+            You earn experience points for each workout you log.
           </p>
         </Card>
 
-        {/* Volume trend mini chart */}
         <Card>
           <div className="card-head">
-            <div className="card-title">Volume — last 14 days</div>
-            <Link to="/progress" className="card-hint text-brand">View all →</Link>
+            <div className="card-title">Volume, last 14 days</div>
+            <Link to="/progress" className="card-hint text-brand">View all</Link>
           </div>
           {chartData.length ? (
             <ResponsiveContainer width="100%" height={150}>
               <AreaChart data={chartData} margin={{ top: 5, right: 6, left: -18, bottom: 0 }}>
                 <defs>
                   <linearGradient id="volFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#6366f1" stopOpacity={0.55} />
+                    <stop offset="0%" stopColor="#6366f1" stopOpacity={0.35} />
                     <stop offset="100%" stopColor="#6366f1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
@@ -117,7 +113,7 @@ export default function Dashboard() {
                   labelStyle={{ color: '#9aa3b8' }}
                   formatter={(v) => [`${formatNumber(v)} kg`, 'Volume']}
                 />
-                <Area type="monotone" dataKey="volume" stroke="#8b5cf6" strokeWidth={2.5} fill="url(#volFill)" />
+                <Area type="monotone" dataKey="volume" stroke="#6366f1" strokeWidth={2} fill="url(#volFill)" />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
@@ -128,18 +124,17 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Recent workouts */}
       <Card className="mt-lg" pad={false}>
         <div className="card-pad card-head" style={{ marginBottom: 0 }}>
           <div className="card-title">Recent workouts</div>
-          <Link to="/workouts" className="card-hint text-brand">See history →</Link>
+          <Link to="/workouts" className="card-hint text-brand">View all</Link>
         </div>
         <div className="divide">
           {recentWorkouts.length === 0 ? (
             <EmptyState
-              emoji="🏋️"
+              icon={<IconDumbbell width={22} height={22} />}
               title="No workouts yet"
-              message="Log your first session and start building your streak."
+              message="Log your first session to see it here."
               action={<Button onClick={() => navigate('/log')}><IconPlus width={18} height={18} /> Log a workout</Button>}
             />
           ) : (
@@ -168,18 +163,17 @@ export default function Dashboard() {
         </div>
       </Card>
 
-      {/* Recently earned badges */}
       {badges.recent.length > 0 && (
         <Card className="mt-lg">
           <div className="card-head">
-            <div className="card-title">Recently earned</div>
-            <Link to="/achievements" className="card-hint text-brand">All achievements →</Link>
+            <div className="card-title">Recently earned badges</div>
+            <Link to="/achievements" className="card-hint text-brand">View all</Link>
           </div>
           <div className="flex gap wrap">
             {badges.recent.map((b) => (
-              <div key={b.code} className="chip active" style={{ padding: '8px 14px', fontSize: 13.5 }}>
-                <span style={{ fontSize: 17 }}>{b.icon}</span> {b.name}
-              </div>
+              <span key={b.code} className="chip active" style={{ padding: '8px 14px', fontSize: 13.5 }}>
+                {b.name}
+              </span>
             ))}
           </div>
         </Card>

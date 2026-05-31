@@ -8,7 +8,7 @@ import {
 const NAV = [
   { to: '/', label: 'Dashboard', icon: IconDashboard, end: true },
   { to: '/log', label: 'Log Workout', icon: IconPlus },
-  { to: '/workouts', label: 'History', icon: IconList },
+  { to: '/workouts', label: 'Workouts', icon: IconList },
   { to: '/exercises', label: 'Exercises', icon: IconLibrary },
   { to: '/progress', label: 'Progress', icon: IconChart },
   { to: '/goals', label: 'Goals', icon: IconTarget },

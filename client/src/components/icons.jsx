@@ -59,3 +59,9 @@ export const IconArrowLeft = (p) => (
 export const IconBolt = (p) => (
   <svg {...base} {...p}><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
 );
+export const IconLock = (p) => (
+  <svg {...base} {...p}><rect x="4.5" y="11" width="15" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+);
+export const IconMedal = (p) => (
+  <svg {...base} {...p}><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg>
+);

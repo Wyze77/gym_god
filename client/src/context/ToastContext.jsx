@@ -21,10 +21,9 @@ export function ToastProvider({ children }) {
   );
 
   const toast = {
-    success: (title, msg) => push({ type: 'success', title, msg, icon: '✅' }),
-    error: (title, msg) => push({ type: 'error', title, msg, icon: '⚠️' }),
-    info: (title, msg) => push({ type: 'info', title, msg, icon: 'ℹ️' }),
-    celebrate: (title, msg) => push({ type: 'success', title, msg, icon: '🎉', duration: 5000 }),
+    success: (title, msg) => push({ type: 'success', title, msg }),
+    error: (title, msg) => push({ type: 'error', title, msg }),
+    info: (title, msg) => push({ type: 'info', title, msg }),
   };
 
   return (
@@ -32,8 +31,7 @@ export function ToastProvider({ children }) {
       {children}
       <div className="toast-stack">
         {toasts.map((t) => (
-          <div key={t.id} className={`toast ${t.type}`} onClick={() => dismiss(t.id)}>
-            <span style={{ fontSize: 18 }}>{t.icon}</span>
+          <div key={t.id} className={`toast ${t.type}`} onClick={() => dismiss(t.id)} role="status">
             <div>
               <div className="toast-title">{t.title}</div>
               {t.msg && <div className="toast-msg">{t.msg}</div>}

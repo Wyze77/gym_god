@@ -1,171 +1,170 @@
-# 🏋️ FitSync
+# FitSync
 
-> Track. Progress. Repeat.
+FitSync is a web application for tracking workouts and monitoring fitness
+progress over time. Users can log training sessions, browse an exercise library,
+set goals, and review their progress through charts and summary statistics.
 
-**FitSync** is a full-stack web app for tracking workouts, visualizing fitness
-progress, and staying motivated through streaks, XP/levels, goals, and
-achievement badges. It is built as a complete, demo-ready MVP suitable for a
-university software-engineering project.
+This project was built as a full-stack software engineering exercise. It uses a
+React front end, an Express REST API, and a MySQL database.
 
-- **Frontend:** React 18 + Vite (JavaScript, no TypeScript)
-- **Backend:** Node.js + Express (REST API, ES modules)
-- **Database:** MySQL 8 / MariaDB 10.4+ (`mysql2` driver)
+## Tech stack
 
----
+- Front end: React 18 with Vite (JavaScript)
+- Back end: Node.js with Express (REST API, ES modules)
+- Database: MySQL 8 (or MariaDB 10.4+), accessed with the `mysql2` driver
+- Auth: JSON Web Tokens with bcrypt password hashing
+- Validation: Zod
 
-## ✨ Features
+## Features
 
-| Area | What it does |
-|------|--------------|
-| **Authentication** | Register / login with JWT, hashed passwords (bcrypt), protected routes |
-| **Dashboard** | Personal greeting, streak, weekly stats, XP/level bar, volume trend, recent workouts, recently-earned badges |
-| **Low-effort logging** | Add exercises from a 30-item library, dynamic set inputs per exercise type, "🔁 Repeat last workout" |
-| **Exercise library** | Searchable / filterable; create your own custom exercises |
-| **Progress** | Charts for training volume, weekly frequency, muscle-group split, body-weight trend, and per-exercise personal records (with estimated 1RM) |
-| **Goals** | Targets for workouts/week, streaks, total volume, target weight — progress computed automatically from your data |
-| **Gamification** | XP + levels, daily streaks, and 10 achievement badges (bronze/silver/gold) awarded automatically |
-| **Profile** | Edit details, log body weight / body-fat over time |
-| **UX** | Modern dark theme, responsive layout (sidebar → mobile bottom nav), toast feedback after every action |
+- User registration and login with hashed passwords and JWT-based sessions
+- Workout logging: add exercises from a library and record sets (reps, weight,
+  duration, or distance depending on the exercise)
+- Exercise library with search and category filters, plus user-created exercises
+- Dashboard with summary statistics, current streak, and recent activity
+- Progress page with charts for training volume, workout frequency, muscle-group
+  distribution, body weight, and per-exercise personal records
+- Goals that are tracked automatically from logged data (workouts per week,
+  streak length, total volume, target body weight)
+- Achievement badges and a simple experience/level system based on activity
+- Profile management and body-weight history
 
----
-
-## 🗂️ Project structure
+## Project structure
 
 ```
 gym_god/
-├── server/                      # Express REST API
+├── server/                     Express REST API
 │   ├── src/
-│   │   ├── config/env.js        # Centralized env config
-│   │   ├── db/
-│   │   │   ├── pool.js          # mysql2 connection pool
-│   │   │   ├── schema.sql       # Tables (drops + recreates)
-│   │   │   ├── seed.sql         # Static reference data (exercises, badges)
-│   │   │   ├── seed.js          # Demo user + sample workouts (dynamic dates)
-│   │   │   └── setup.js         # One-command DB bootstrap
-│   │   ├── middleware/          # auth (JWT), error handler
-│   │   ├── modules/             # Feature modules (routes/controller/service)
+│   │   ├── config/             Environment configuration
+│   │   ├── db/                 Connection pool, schema.sql, seed files, setup script
+│   │   ├── middleware/         Auth and error handling
+│   │   ├── modules/            Feature modules (routes, controller, service)
 │   │   │   ├── auth/  users/  exercises/  workouts/
-│   │   │   ├── goals/ stats/   gamification/
-│   │   ├── routes/index.js      # API route aggregation
-│   │   ├── utils/               # ApiError, asyncHandler, validate, token
-│   │   ├── app.js               # Express app wiring
-│   │   └── server.js            # Entry point
-│   └── scripts/smoke-test.mjs   # Optional end-to-end API check
-│
-└── client/                      # React + Vite frontend
+│   │   │   ├── goals/ stats/  gamification/
+│   │   ├── routes/             API route registration
+│   │   ├── utils/              Shared helpers (errors, validation, tokens)
+│   │   ├── app.js              Express app setup
+│   │   └── server.js           Entry point
+│   └── scripts/                Optional API smoke test
+└── client/                     React + Vite front end
     └── src/
-        ├── api/client.js        # fetch wrapper + token storage
-        ├── context/             # Auth + Toast providers
-        ├── components/          # Layout, icons, reusable UI
-        ├── pages/               # Login, Register, Dashboard, LogWorkout, …
-        ├── utils/format.js      # Display helpers
-        ├── App.jsx              # Router + protected routes
-        └── index.css            # Design system
+        ├── api/                Fetch wrapper and token storage
+        ├── context/            Auth and toast providers
+        ├── components/         Layout, icons, shared UI
+        ├── pages/              Page components
+        ├── utils/              Formatting helpers
+        ├── App.jsx             Routing and protected routes
+        └── index.css           Styles
 ```
 
----
+The back end follows a modular layout. Each feature has its own routes,
+controller, and service so that request handling, business logic, and data
+access stay separated.
 
-## 🚀 Getting started
+## Requirements
 
-### Prerequisites
-- **Node.js 18+**
-- **MySQL 8** (or MariaDB 10.4+) running locally
+- Node.js 18 or newer
+- A running MySQL 8 or MariaDB 10.4+ server
 
-### 1. Database + backend
+## Setup
 
-```bash
+### 1. Database and back end
+
+```
 cd server
-cp .env.example .env          # then edit DB_USER / DB_PASSWORD to match your MySQL
-npm install
-npm run db:setup              # creates the `fitsync` DB, schema, and demo data
-npm run dev                   # API on http://localhost:4000
+cp .env.example .env
 ```
 
-`npm run db:setup` is **idempotent** — it drops and recreates everything, so you
-can re-run it any time to reset to a clean, seeded state.
+Edit `.env` and set `DB_USER` and `DB_PASSWORD` to match your MySQL server, then:
 
-> The setup script connects with the credentials in `.env`, creates the database
-> if it doesn't exist, runs `schema.sql`, loads the exercise/badge reference data
-> from `seed.sql`, then seeds a demo account with realistic recent workouts.
+```
+npm install
+npm run db:setup
+npm run dev
+```
 
-### 2. Frontend
+`npm run db:setup` creates the `fitsync` database if it does not exist, runs the
+schema, loads the exercise and badge reference data, and inserts a demo account
+with sample workouts. It can be re-run at any time to reset the database to a
+clean state.
 
-```bash
+The API runs on http://localhost:4000.
+
+### 2. Front end
+
+```
 cd client
 npm install
-npm run dev                   # app on http://localhost:5173
+npm run dev
 ```
 
-The Vite dev server proxies `/api` → `http://localhost:4000`, so no extra config
-is needed. Open **http://localhost:5173** and log in.
+The app runs on http://localhost:5173. The Vite dev server proxies API requests
+to the back end, so no extra configuration is needed.
 
-### 🔑 Demo account
+### Demo account
+
 ```
 Email:    demo@fitsync.app
 Password: demo1234
 ```
-(The login form is pre-filled — just click **Log in**.)
 
----
+The login form is pre-filled with these credentials.
 
-## ⚙️ Environment variables (`server/.env`)
+## Environment variables (server/.env)
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PORT` | `4000` | API port |
 | `CLIENT_ORIGIN` | `http://localhost:5173` | Allowed CORS origin |
-| `DB_HOST` / `DB_PORT` | `127.0.0.1` / `3306` | MySQL connection |
-| `DB_USER` / `DB_PASSWORD` | `root` / `` | MySQL credentials |
+| `DB_HOST` / `DB_PORT` | `127.0.0.1` / `3306` | MySQL host and port |
+| `DB_USER` / `DB_PASSWORD` | `root` / empty | MySQL credentials |
 | `DB_NAME` | `fitsync` | Database name |
-| `JWT_SECRET` | _(set me)_ | Secret for signing tokens |
+| `JWT_SECRET` | (set this) | Secret used to sign tokens |
 | `JWT_EXPIRES_IN` | `7d` | Token lifetime |
 
----
+## Database schema
 
-## 🧱 Database schema
+The schema has nine tables with foreign keys and cascading deletes:
 
-9 tables with foreign keys and cascading deletes:
+- `users` - account details, profile, experience points and level
+- `exercises` - shared library plus user-created exercises; `metric_type`
+  determines which fields apply when logging
+- `workouts`, `workout_exercises`, `workout_sets` - a session and its nested data
+- `goals` - targets with progress derived from the user's data
+- `body_metrics` - body weight and body-fat entries (one row per day)
+- `badges`, `user_badges` - badge definitions and the badges each user has earned
 
-- **users** — account, profile, XP & level
-- **exercises** — shared library + per-user custom exercises (`metric_type` drives the logging UI)
-- **workouts** → **workout_exercises** → **workout_sets** — a session and its nested data
-- **goals** — targets with auto-computed progress
-- **body_metrics** — weight / body-fat over time (one row per day)
-- **badges** + **user_badges** — achievement definitions and earned records
+## API endpoints
 
----
-
-## 🔌 API overview
-
-All endpoints are prefixed with `/api`. Protected routes require
-`Authorization: Bearer <token>`.
+All routes are prefixed with `/api`. Protected routes require an
+`Authorization: Bearer <token>` header.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/auth/register` · `/auth/login` | Create account / sign in |
-| `GET` | `/auth/me` | Current user |
-| `PATCH` | `/users/me` | Update profile |
-| `GET`/`POST` | `/users/me/metrics` | Body-weight history / add entry |
-| `GET`/`POST` | `/exercises` | List (filterable) / create custom |
-| `GET`/`POST`/`DELETE` | `/workouts` | List / create / delete |
-| `GET` | `/workouts/:id` · `/workouts/last` | Detail / template for repeat |
-| `GET`/`POST`/`PATCH`/`DELETE` | `/goals` | Manage goals |
-| `GET` | `/stats/dashboard` · `/stats/progress` | Aggregated data for the UI |
-| `GET` | `/gamification/badges` · `/gamification/level` | Achievements & level |
+| POST | `/auth/register`, `/auth/login` | Create account, sign in |
+| GET | `/auth/me` | Current user |
+| PATCH | `/users/me` | Update profile |
+| GET, POST | `/users/me/metrics` | Body-weight history and new entries |
+| GET, POST | `/exercises` | List (with filters) and create custom exercises |
+| GET, POST, DELETE | `/workouts` | List, create, delete |
+| GET | `/workouts/:id`, `/workouts/last` | Workout detail and last workout |
+| GET, POST, PATCH, DELETE | `/goals` | Manage goals |
+| GET | `/stats/dashboard`, `/stats/progress` | Aggregated data for the UI |
+| GET | `/gamification/badges`, `/gamification/level` | Badges and level |
 
-### Verify the API (optional)
-With the server running and database seeded:
-```bash
-cd server && npm run test:smoke
+## Checking the API
+
+With the server running and the database set up, an optional script runs a set
+of requests against the API:
+
+```
+cd server
+npm run test:smoke
 ```
 
----
+## Notes
 
-## 🛠️ Tech notes
-- Clean modular backend: each feature has its own **routes → controller → service**.
-- Centralized error handling with a custom `ApiError` and consistent JSON shape.
-- Request validation with **Zod**.
-- Workout creation is **transactional** (workout + exercises + sets), then awards
-  XP and evaluates badges.
-- Streaks, volume, goal progress, and PRs are computed in SQL/service code from
-  the raw data — nothing is faked.
+- Statistics such as streaks, total volume, goal progress, and personal records
+  are computed from the stored workout data rather than stored directly.
+- Creating a workout is handled in a single database transaction so that the
+  workout, its exercises, and its sets are saved together.
