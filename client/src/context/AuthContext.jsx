@@ -7,7 +7,6 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Restore session on first load if a token exists.
   useEffect(() => {
     const token = tokenStore.get();
     if (!token) {

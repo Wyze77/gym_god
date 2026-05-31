@@ -45,7 +45,7 @@ export default function WorkoutDetail() {
   return (
     <>
       <button className="btn btn-ghost btn-sm mb" onClick={() => navigate('/workouts')}>
-        <IconArrowLeft width={16} height={16} /> Back to history
+        <IconArrowLeft width={16} height={16} /> Back to workouts
       </button>
 
       <div className="page-head">

@@ -2,14 +2,12 @@ import pool, { query } from '../../db/pool.js';
 import ApiError from '../../utils/ApiError.js';
 import * as gamification from '../gamification/gamification.service.js';
 
-/** Normalize a performedAt input into a MySQL DATETIME string. */
 function toDateTime(value) {
   const date = value ? new Date(value) : new Date();
   if (Number.isNaN(date.getTime())) return new Date().toISOString().slice(0, 19).replace('T', ' ');
   return date.toISOString().slice(0, 19).replace('T', ' ');
 }
 
-/** XP earned for a logged workout: a base reward plus a bonus per set. */
 function computeWorkoutXp(setCount) {
   return 40 + setCount * 5;
 }
@@ -80,7 +78,8 @@ export async function create(userId, data) {
     conn.release();
   }
 
-  // Reward the user (outside the transaction; these are derived/non-critical).
+  // XP and badge evaluation happen outside the transaction – they're derived
+  // state and don't need to roll back if the workout was saved successfully.
   const xpGained = computeWorkoutXp(setCount);
   const levelBefore = (await query('SELECT level FROM users WHERE id = :id', { id: userId }))[0].level;
   const levelInfo = await gamification.addXp(userId, xpGained);
@@ -98,7 +97,6 @@ export async function create(userId, data) {
   };
 }
 
-/** Paginated list of workouts with lightweight summary stats. */
 export async function list(userId, { limit, offset }) {
   const rows = await query(
     `SELECT w.id, w.title, w.notes, w.performed_at AS performedAt, w.duration_min AS durationMin,
@@ -124,7 +122,6 @@ export async function list(userId, { limit, offset }) {
   return { workouts: rows, total: Number(total) };
 }
 
-/** Full workout detail including exercises and their sets. */
 export async function getById(userId, id) {
   const [workout] = await query(
     `SELECT id, title, notes, performed_at AS performedAt, duration_min AS durationMin, created_at AS createdAt
@@ -153,7 +150,6 @@ export async function getById(userId, id) {
     );
   }
 
-  // Convenience aggregate for the detail view.
   const volume = exercises.reduce((sum, ex) => {
     return sum + ex.sets.reduce((s, set) => {
       if (set.reps != null && set.weightKg != null) return s + set.reps * Number(set.weightKg);
@@ -172,7 +168,6 @@ export async function remove(userId, id) {
   if (result.affectedRows === 0) throw ApiError.notFound('Workout not found');
 }
 
-/** The most recent workout as a template for "repeat last workout". */
 export async function getLast(userId) {
   const [last] = await query(
     'SELECT id FROM workouts WHERE user_id = :userId ORDER BY performed_at DESC LIMIT 1',

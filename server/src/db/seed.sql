@@ -1,8 +1,5 @@
--- =====================================================================
--- FitSync static reference data: exercise library + badge definitions.
--- (The demo user, workouts and metrics are seeded by seed.js so that
---  passwords are hashed and dates are relative to "today".)
--- =====================================================================
+-- Reference data: exercise library and badge definitions.
+-- Demo user and sample workouts are inserted by seed.js (requires bcrypt).
 
 -- ---------------------------------------------------------------------
 -- Exercise library

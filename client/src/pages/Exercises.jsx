@@ -66,7 +66,7 @@ export default function Exercises() {
     <>
       <div className="page-head">
         <div>
-          <h1 className="page-title">Exercise library</h1>
+          <h1 className="page-title">Exercises</h1>
           <p className="page-sub">Browse {exercises.length} exercises or add your own.</p>
         </div>
         <Button onClick={() => setModal(true)}><IconPlus width={18} height={18} /> Custom exercise</Button>

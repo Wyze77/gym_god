@@ -1,8 +1,5 @@
--- =====================================================================
--- FitSync MySQL schema
--- A clean, normalized schema for a fitness tracking MVP.
--- Safe to re-run: drops and recreates all tables.
--- =====================================================================
+-- FitSync database schema.
+-- Drops and recreates all tables. Safe to re-run during development.
 
 SET FOREIGN_KEY_CHECKS = 0;
 

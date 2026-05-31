@@ -1,7 +1,4 @@
-/* =====================================================================
-   FitSync design system
-   A modern, energetic dark theme tuned for clarity and motivation.
-   ===================================================================== */
+/* FitSync – global styles and design tokens */
 :root {
   --bg: #0f1117;
   --bg-elev: #161922;
@@ -120,7 +117,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Cards ---------- */
 .card {
-  background: linear-gradient(180deg, var(--surface), var(--bg-elev));
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
@@ -136,16 +133,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Stat cards ---------- */
 .stat {
-  position: relative; overflow: hidden;
   padding: 18px 20px; border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--surface), var(--bg-elev));
+  background: var(--surface);
   border: 1px solid var(--border);
 }
 .stat-icon {
   width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
   font-size: 20px; margin-bottom: 12px; background: var(--brand-soft);
 }
-.stat-value { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+.stat-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 .stat-label { color: var(--text-dim); font-size: 13px; margin-top: 3px; }
 .stat-sub { font-size: 12px; margin-top: 7px; color: var(--accent); font-weight: 600; }
 
@@ -307,8 +303,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .text-brand { color: var(--brand-2); }
 .text-right { text-align: right; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-
-.streak-flame { font-size: 18px; filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6)); }
 
 /* Mobile bottom nav */
 .mobile-nav { display: none; }

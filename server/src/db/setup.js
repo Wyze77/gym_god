@@ -1,15 +1,5 @@
-/**
- * Database setup / migration script.
- *
- *   node src/db/setup.js
- *
- * Steps:
- *   1. Connect to the MySQL server (no database selected).
- *   2. Create the FitSync database if it does not exist.
- *   3. Run schema.sql  (tables).
- *   4. Run seed.sql     (static exercise & badge reference data).
- *   5. Run seed.js      (demo user + sample workouts with recent dates).
- */
+// Creates the database if needed, applies schema.sql, and seeds reference + demo data.
+// Safe to re-run: schema.sql drops and recreates all tables.
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -26,7 +16,6 @@ function readSql(file) {
 async function run() {
   console.log('Setting up the FitSync database...');
 
-  // Connect without selecting a database so we can create it.
   const root = await mysql.createConnection({
     host: config.db.host,
     port: config.db.port,
@@ -50,7 +39,6 @@ async function run() {
 
   await root.end();
 
-  // Dynamic demo data uses the shared pool and bcrypt hashing.
   await seedDemoData();
   console.log('Demo account and sample workouts inserted');
 
