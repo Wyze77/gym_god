@@ -16,7 +16,6 @@ const NAV = [
   { to: '/profile', label: 'Profile', icon: IconUser },
 ];
 
-// Condensed nav for the mobile bottom bar.
 const MOBILE_NAV = NAV.filter((n) =>
   ['/', '/log', '/workouts', '/progress', '/profile'].includes(n.to)
 );

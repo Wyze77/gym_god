@@ -1,11 +1,5 @@
-/**
- * Dynamic demo data seeder.
- *
- * Creates a ready-to-demo account with a password hash and workouts dated
- * relative to today (so streaks and "this week" stats look realistic).
- *
- * Demo login:  demo@fitsync.app  /  demo1234
- */
+// Seeds a demo account (demo@fitsync.app / demo1234) with workouts dated
+// relative to today so streaks and weekly stats look reasonable.
 import bcrypt from 'bcryptjs';
 import pool, { query } from './pool.js';
 
@@ -34,14 +28,7 @@ async function getExerciseMap() {
   return map;
 }
 
-/**
- * Insert a workout with its exercises and sets.
- * @param {number} userId
- * @param {Date} when
- * @param {string} title
- * @param {number} duration
- * @param {Array<{exerciseId:number, sets:Array<object>}>} entries
- */
+// Inserts a workout with its exercises and sets using plain queries.
 async function insertWorkout(userId, when, title, duration, entries) {
   const res = await query(
     `INSERT INTO workouts (user_id, title, performed_at, duration_min, notes)

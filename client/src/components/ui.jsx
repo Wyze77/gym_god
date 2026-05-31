@@ -1,4 +1,3 @@
-// Small, reusable presentational components shared across pages.
 import { useEffect } from 'react';
 
 export function Spinner({ page }) {
@@ -91,7 +90,7 @@ export function Modal({ open, onClose, title, children, footer }) {
   if (!open) return null;
   return (
     <div className="modal-overlay" onMouseDown={onClose}>
-      <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="modal" onMouseDown={(e) => e.stopPropagation()} style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         {title && <h3 style={{ marginBottom: 16 }}>{title}</h3>}
         {children}
         {footer && <div className="flex gap-sm" style={{ justifyContent: 'flex-end', marginTop: 20 }}>{footer}</div>}

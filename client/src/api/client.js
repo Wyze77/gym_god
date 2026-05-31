@@ -1,4 +1,3 @@
-// Lightweight fetch wrapper that attaches the JWT and normalizes errors.
 const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const TOKEN_KEY = 'fitsync_token';
@@ -30,7 +29,7 @@ async function request(method, path, body) {
       body: body ? JSON.stringify(body) : undefined,
     });
   } catch {
-    throw new ApiError('Network error - is the API running?', 0);
+    throw new ApiError('Network request failed. Check that the server is running.', 0);
   }
 
   if (res.status === 204) return null;

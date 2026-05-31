@@ -62,7 +62,7 @@ export default function Register() {
       <div className="auth-form-side">
         <div className="auth-card">
           <h2 style={{ fontSize: 22, marginBottom: 6 }}>Register</h2>
-          <p className="muted mb">It only takes a moment to get started.</p>
+          <p className="muted mb">Fill in your details to create an account.</p>
 
           <form onSubmit={submit}>
             <Field label="Name" error={errors.name}>

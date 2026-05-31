@@ -66,7 +66,7 @@ export default function Progress() {
           <div className="grid grid-stats mb">
             <Card><div className="stat-value" style={{ fontSize: 24 }}>{formatVolume(summary.totalVolume)}</div><div className="stat-label">Lifetime volume</div></Card>
             <Card><div className="stat-value" style={{ fontSize: 24 }}>{summary.totalSets}</div><div className="stat-label">Total sets</div></Card>
-            <Card><div className="stat-value" style={{ fontSize: 24 }}>{summary.distinctExercises}</div><div className="stat-label">Exercises tried</div></Card>
+            <Card><div className="stat-value" style={{ fontSize: 24 }}>{summary.distinctExercises}</div><div className="stat-label">Distinct exercises</div></Card>
             <Card><div className="stat-value" style={{ fontSize: 24 }}>{summary.longestStreak}<span style={{ fontSize: 15 }}> days</span></div><div className="stat-label">Longest streak</div></Card>
           </div>
 

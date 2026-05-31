@@ -1,7 +1,7 @@
 {
   "name": "fitsync-server",
   "version": "1.0.0",
-  "description": "FitSync REST API - Express.js backend with MySQL",
+  "description": "FitSync REST API – Express + MySQL backend",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
@@ -11,12 +11,6 @@
     "db:reset": "node src/db/setup.js",
     "test:smoke": "node scripts/smoke-test.mjs"
   },
-  "keywords": [
-    "fitness",
-    "express",
-    "mysql",
-    "rest-api"
-  ],
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -171,7 +171,7 @@ export default function LogWorkout() {
       <div className="page-head">
         <div>
           <h1 className="page-title">Log a workout</h1>
-          <p className="page-sub">Add the exercises and sets you completed.</p>
+          <p className="page-sub">Select exercises from the library and record your sets.</p>
         </div>
         <Button variant="ghost" onClick={repeatLast}>Repeat last workout</Button>
       </div>

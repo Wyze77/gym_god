@@ -87,9 +87,6 @@ export default function Dashboard() {
             </span>
           </div>
           <ProgressBar value={xpPct} />
-          <p className="muted mt" style={{ fontSize: 13 }}>
-            You earn experience points for each workout you log.
-          </p>
         </Card>
 
         <Card>

@@ -1,10 +1,6 @@
 import mysql from 'mysql2/promise';
 import config from '../config/env.js';
 
-/**
- * A shared MySQL connection pool used across the whole app.
- * Using a pool avoids opening a new connection per request.
- */
 const pool = mysql.createPool({
   host: config.db.host,
   port: config.db.port,
@@ -18,11 +14,7 @@ const pool = mysql.createPool({
   dateStrings: true,
 });
 
-/**
- * Small helper around pool.query that returns just the rows.
- * @param {string} sql
- * @param {object|Array} [params]
- */
+// Convenience wrapper – returns rows directly instead of [rows, fields].
 export async function query(sql, params) {
   const [rows] = await pool.query(sql, params);
   return rows;
